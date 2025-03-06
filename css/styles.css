@@ -1,0 +1,276 @@
+/**********************************************
+  1) ROOT VARIABLES
+     - Colors, transitions, shadows, etc.
+**********************************************/
+:root {
+	--primary: #8a2be2;       /* A neon purple color */
+	--secondary: #00d4ff;     /* A bright teal accent */
+	--danger: #d72323;        /* For error or highlight text */
+	--background-dark: #1f1f1f;
+	--glass-bg: rgba(255, 255, 255, 0.15);
+	--border-glass: rgba(255, 255, 255, 0.3);
+  
+	--text-color: #ffffff;
+	--muted: #b9bbbe;
+	--token-bg: #2c2f33;
+	--border-color: #222428;
+  
+	--transition-speed: 0.4s;
+	--box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  
+	/* For fancy gradient backgrounds */
+	--gradient-1: #7c4dff;
+	--gradient-2: #596aed;
+	--gradient-3: #00d4ff;
+  
+	/* Sizes for the popup */
+	--popup-width: 450px;
+	--popup-height: 600px;
+  }
+  
+  /**********************************************
+	2) RESET & GLOBAL
+  **********************************************/
+  * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  
+  html, body {
+	width: var(--popup-width);
+	height: var(--popup-height);
+	overflow: hidden; /* Prevent scrollbars in a small popup */
+	font-family: 'Lato', sans-serif;
+	color: var(--text-color);
+	background: var(--background-dark);
+	position: relative;
+  }
+  
+  /**********************************************
+	3) BACKGROUND BLOBS / SHAPES
+	   - We'll animate multiple "blob" elements
+  **********************************************/
+  .background-blobs {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	z-index: 0; /* behind everything */
+  }
+  
+  /* Each blob shape */
+  .blob {
+	position: absolute;
+	border-radius: 50%;
+	filter: blur(80px);
+	opacity: 0.6;
+	animation: blobMovement var(--transition-speed) linear infinite alternate;
+  }
+  
+  .blob-1 {
+	width: 400px;
+	height: 400px;
+	top: -100px;
+	left: -150px;
+	background: var(--gradient-1);
+	animation-duration: 10s;
+  }
+  
+  .blob-2 {
+	width: 300px;
+	height: 300px;
+	bottom: -100px;
+	right: -50px;
+	background: var(--gradient-2);
+	animation-duration: 12s;
+  }
+  
+  .blob-3 {
+	width: 200px;
+	height: 200px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: var(--gradient-3);
+	animation-duration: 14s;
+  }
+  
+  /* Keyframes for the subtle floating motion */
+  @keyframes blobMovement {
+	0% {
+	  transform: translateY(0) scale(1);
+	}
+	50% {
+	  transform: translateY(30px) scale(1.05);
+	}
+	100% {
+	  transform: translateY(-30px) scale(0.95);
+	}
+  }
+  
+  /**********************************************
+	4) CONTAINER & INNER CONTENT
+  **********************************************/
+  .container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1; /* Above the blobs */
+  }
+  
+  /* Glass effect container */
+  .inner-container {
+	position: relative;
+	width: 90%;
+	max-width: 400px;
+	min-height: 350px;
+  
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+  
+	padding: 20px;
+	border-radius: 16px;
+	box-shadow: var(--box-shadow);
+  
+	/* Glassmorphism background & border */
+	background: var(--glass-bg);
+	backdrop-filter: blur(10px);
+	border: 1px solid var(--border-glass);
+  
+	/* Fade-in effect */
+	animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  /* Keyframes for fadeIn */
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	  transform: translateY(-10px) scale(0.95);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0) scale(1);
+	}
+  }
+  
+  /**********************************************
+	5) TEXT & LABELS
+  **********************************************/
+  .token-label {
+	font-family: 'Secular One', sans-serif;
+	color: var(--muted);
+	font-size: 1rem;
+  }
+  
+  .notice {
+	font-family: 'Secular One', sans-serif;
+	font-size: 0.9rem;
+	color: var(--muted);
+	text-align: center;
+	line-height: 1.4;
+	margin-top: 10px;
+  }
+  
+  .notice-link {
+	color: var(--secondary);
+	text-decoration: underline;
+	transition: color var(--transition-speed);
+  }
+  
+  .notice-link:hover {
+	color: var(--gradient-1);
+  }
+  
+  .notice-red {
+	color: var(--danger);
+	font-size: 1rem;
+	font-weight: bold;
+  }
+  
+  /**********************************************
+	6) INPUT & BUTTON
+  **********************************************/
+  #token {
+	width: 100%;
+	padding: 12px;
+	border-radius: 8px;
+	border: 1px solid var(--border-color);
+	background: var(--token-bg);
+	color: var(--text-color);
+	outline: none;
+	font-family: 'Lato', sans-serif;
+	font-size: 0.95rem;
+	transition: border-color var(--transition-speed);
+  }
+  #token:focus {
+	border-color: var(--secondary);
+  }
+  
+  /* "Get Token" button */
+  .getToken {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--primary);
+	color: var(--text-color);
+	border: none;
+	border-radius: 8px;
+	padding: 12px 18px;
+	font-size: 0.95rem;
+	font-family: 'Lato', sans-serif;
+	cursor: pointer;
+	transition:
+	  transform var(--transition-speed),
+	  background var(--transition-speed),
+	  box-shadow var(--transition-speed);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  .getToken:hover {
+	background: var(--secondary);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+  .getToken:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /**********************************************
+	7) LINKS (Contact / Hire)
+  **********************************************/
+  .contact-label {
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 0.85rem;
+	color: var(--secondary);
+	text-decoration: none;
+	transition: color var(--transition-speed);
+  }
+  .contact-label:hover {
+	color: var(--gradient-3);
+  }
+  
+  /**********************************************
+	8) LAYOUT UTILS
+  **********************************************/
+  .roww-2 {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  /* Disable text selection on certain elements */
+  .unselectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  }
+  
