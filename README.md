@@ -41,7 +41,7 @@ This **Chrome Extension** allows you to fetch the currently logged-in Discord us
 
 Here’s a small preview of the extension popup (replace with your own screenshot):
 
-![Extension Preview](images/preview.png)
+![Extension Preview](preview.png)
 
 <br />
 
